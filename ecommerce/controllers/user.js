@@ -9,7 +9,8 @@ const sendgridTransport = require("nodemailer-sendgrid-transport");
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key: `${process.env.SENDGRID_API_KEY}`,
+      api_key:
+        "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",
     },
   })
 );
@@ -78,7 +79,7 @@ exports.forgetPasswordLink = (req, res) => {
   crypto.randomBytes(20, function (err, buf) {
     var token = buf.toString("hex");
 
-    User.findOne({ email: req.body.email }).then((user) => {
+    User.findOne({ email: "tahirhamza41@gmail.com" }).then((user) => {
       if (!user) {
         return res
           .status(404)
@@ -96,16 +97,15 @@ exports.forgetPasswordLink = (req, res) => {
         { resetPasswordToken: token }
       );
       transporter.sendMail({
-        to: user.email,
-        from: "tincart.com",
+        to: "tahirhamza41@gmail.com",
+        from: "hamzatahir4712@gmail.com",
         subject: "TinCard Password Reset",
         // text: ` CLICK ON THIS LINK TO RESET YOUR PASSWORD ========>
         // ${process.env.HOST}/forgetpassword/${token} `,
         text:
           "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
           "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-          process.env.HOST +
-          "/forgetpassword/" +
+          "http://localhost:3000/forgetpasswordlink/" +
           token +
           "\n\n" +
           "If you did not request this, please ignore this email and your password will remain unchanged.\n",
